@@ -39,6 +39,7 @@ const Login = () => {
       const res = await API.post("/token/", formData);
       localStorage.setItem("token", res.data.access);
       localStorage.setItem("refreshToken", res.data.refresh);
+      toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {
       localStorage.removeItem("token"); // <-- Add this line
@@ -59,9 +60,12 @@ const Login = () => {
   };
   return (
     <Container className="d-flex justify-content-center align-items-center py-5 page-wrapper">
-      <Card className="shadow-lg p-4" style={{ maxWidth: "400px", width: "100%" }}>
+      <Card className="shadow-lg p-4" style={{ maxWidth: "400px", width: "100%", borderRadius: "1rem" }}>
         <Card.Body>
-          <h3 className="text-center mb-4">Login</h3>
+          <h3 className="text-center mb-3 fw-bold">Welcome Back 👋</h3>
+          <p className="text-center text-muted mb-4">
+            Log in to continue to managing your tasks
+          </p>
           {serverError && <div className="alert alert-danger">{serverError}</div>}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">

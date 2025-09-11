@@ -66,9 +66,12 @@ const Signup = () => {
 
   return (
     <Container className="d-flex justify-content-center align-items-center py-5 page-wrapper">
-      <Card className="shadow-lg p-4" style={{ maxWidth: "400px", width: "100%" }}>
+      <Card className="shadow-lg p-4" style={{ maxWidth: "400px", width: "100%", borderRadius: "1rem" }}>
         <Card.Body>
-          <h3 className="text-center mb-4">Sign Up</h3>
+          <h3 className="text-center mb-3 fw-bold">Welcome 👋</h3>
+          <p className="text-center text-muted mb-4">
+            Create an account to managing your tasks and increase your productivity!
+          </p>
           {serverError && <div className="alert alert-danger">{serverError}</div>}
           {success && <Alert variant="success">{success}</Alert>}
 

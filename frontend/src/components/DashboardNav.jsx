@@ -130,8 +130,8 @@ const DashboardNav = ({ onSearch, onFilter, currentFilter, currentSearch, onCate
 
   return (
     <>
-      <div className="dashboard-nav rounded shadow-sm my-3">
-        <nav className="navbar navbar-expand-lg px-3">
+      <div className="dashboard-nav rounded shadow-sm my-3 ">
+        <nav className="navbar navbar-expand-lg px-3 bg-light rounded shadow-sm">
           <span className="navbar-brand fw-semibold">Dashboard</span>
 
           {/* toggler */}
@@ -153,7 +153,7 @@ const DashboardNav = ({ onSearch, onFilter, currentFilter, currentSearch, onCate
             id="dashboardNav"
             className={`collapse navbar-collapse ${expanded ? "show" : ""}`}
           >
-            <ul className="navbar-nav me-auto">
+            <ul className="navbar-nav me-auto btn-group">
               <li className="nav-item">
                 <button
                   className={`btn btn-sm me-2 ${currentFilter === "all" ? "btn-outline-light active" : "btn-outline-light"}`}
@@ -180,7 +180,7 @@ const DashboardNav = ({ onSearch, onFilter, currentFilter, currentSearch, onCate
               </li>
               <li className="nav-item">
                 <button
-                  className="btn btn-sm btn-outline-success"
+                  className="btn btn-sm btn-outline-success fw-semibold"
                   onClick={() =>
                     handleMenuAction(() => {
                       setShowTaskModal(true);
@@ -192,19 +192,20 @@ const DashboardNav = ({ onSearch, onFilter, currentFilter, currentSearch, onCate
               </li>
               {/* ✅ Category Dropdown */}
               {categories.length > 0 && (
-                <li className="nav-item">
+                <li className="nav-item ">
                   <select
                     className="form-select form-select-sm ms-2 shadow-sm rounded fw-semibold"
                     value={selectedCategory || ""}   // ✅ sync selection
                     onChange={(e) => onCategoryChange(e.target.value || null)}
                   >
-                    <option value="">-- Filter by Category --</option>
+                    <option value="" >-- Filter by Category --</option>
                     {categories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
+                      <option key={cat.id} value={cat.id} >
                         {cat.name}
                       </option>
                     ))}
                   </select>
+                    
                 </li>
               )}
             </ul>
@@ -220,9 +221,9 @@ const DashboardNav = ({ onSearch, onFilter, currentFilter, currentSearch, onCate
             >*/}
             <div className="d-flex">
               <input
-                className="form-control form-control-sm me-2"
+                className="form-control form-control-sm me-2 rounded"
                 type="search"
-                placeholder="Search tasks..."
+                placeholder="🔍 Search tasks..."
                 value={searchTerm}
                 onChange={handleSearchInputChange}
               />

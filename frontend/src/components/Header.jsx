@@ -15,10 +15,9 @@ const Header = ({ theme, toggleTheme }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     setUser(null);
+    setExpanded(false);
     navigate("/login");
   };
-
-
 
   useEffect(() => {
     const fetchMe = async () => {
@@ -38,16 +37,17 @@ const Header = ({ theme, toggleTheme }) => {
     <Navbar expand="lg" expanded={expanded} onToggle={(val) => setExpanded(val)} className="shadow-sm" style={{ backgroundColor: "var(--bs-navbar-bg)" }}>
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold">
-          <h3>Task Manager</h3>
+          <h3 className="mb-0">Task Manager</h3>
 
         </Navbar.Brand>
-        {user && token &&
-
-          <h5 className="me-3 d-flex align-items-center mb-0 justify-content-end">
-            <span className="text-gray-200 dark:text-gray-200 ">
-              Welcome, <strong>{user.username}</strong>
-            </span></h5>
-        }
+        {user && token && (
+          <div className="d-none d-lg-flex align-items-center ms-3 me-auto">
+            <Link to="/profile" onClick={() => setExpanded(false)} className="text-decoration-none">
+              <span className="text-muted">Welcome,&nbsp;</span>
+              <strong className="text-dark">{user.username}</strong>
+            </Link>
+          </div>
+        )}
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar" className="justify-content-end">
           <Nav>

@@ -5,7 +5,7 @@ import TaskCard from "../components/TaskCard";
 import EmptyPlaceholder from "../components/EmptyPlaceholder";
 import { toast } from "react-toastify";
 import { useDebounce } from "../hooks/useDebounce";
-import Loader from "../components/Loader";
+import { Pagination } from "react-bootstrap";
 
 const Dashboard = () => {
   const { state, fetchTasks, fetchAllTasks, deleteTask, updateTask, toggleTaskCompletion, } = useContext(TaskContext);
@@ -13,12 +13,13 @@ const Dashboard = () => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [availableCategories, setAvailableCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const debouncedSearch = useDebounce(search, 1000);
 
   useEffect(() => {
-    fetchTasks({ page: 1, search: debouncedSearch, filter, category: selectedCategory || null });
-  }, [filter, debouncedSearch, selectedCategory]);
+    fetchTasks({ page: currentPage, search: debouncedSearch, filter, category: selectedCategory || null });
+  }, [currentPage, filter, debouncedSearch, selectedCategory]);
   
   
   // ✅ Sync available categories whenever allTasks/categories change
@@ -36,7 +37,8 @@ const Dashboard = () => {
 
   const handleCategoryChange = (catId) => {
     setSelectedCategory(catId || null);
-    fetchTasks({ page: 1, search, filter, category: catId });
+    fetchTasks({ page: currentPage, search, filter, category: catId });
+    setCurrentPage(1);
   };
 
 
@@ -78,26 +80,36 @@ const Dashboard = () => {
 
   const handleSearch = (query) => {
     setSearch(query);
-    fetchTasks({ page: 1, search: query, filter, category: selectedCategory || null });
+    fetchTasks({ page: currentPage, search: query, filter, category: selectedCategory || null });
+    setCurrentPage(1);
   }
   const handleFilter = (filterType) => {
     setFilter(filterType);
     setSearch("");
     setSelectedCategory("");
-    fetchTasks({ page: 1, search, filter: filterType, category:"" });
+    fetchTasks({ page: currentPage, search, filter: filterType, category:"" });
+    setCurrentPage(1);
   };
 
+  useEffect(() => {
+    if (!state.loading && state.tasks.length === 0 && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [state.tasks, state.loading]);
+
+  const totalPages = Math.ceil(state.count / 10);
+/*
   const handlePageChange = (direction) => {
     const newPage = direction === "next" ? state.page + 1 : state.page - 1;
     fetchTasks({ page: newPage, search, filter });
   };
-
+*/
   //if (state.loading) return <Loader />;
   if (state.error) return <p className="text-danger">{state.error}</p>;
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <div className="container">
+      <div className="container py-3">
         <DashboardNav onSearch={handleSearch} currentSearch={search} onFilter={handleFilter} currentFilter={filter} selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} categories={availableCategories} />
         <main className="flex-grow-1 py-4">
           {state.tasks.length === 0 ? (
@@ -117,7 +129,32 @@ const Dashboard = () => {
                   </div>
                 ))}
               </div>
-              {/* ✅ Pagination */}
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="d-flex justify-content-center mt-4">
+                    <Pagination>
+                      <Pagination.First onClick={() => setCurrentPage(1)} disabled={currentPage === 1} />
+                      <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1} />
+
+                      {[...Array(totalPages)].map((_, index) => (
+                        <Pagination.Item
+                          key={index + 1}
+                          active={currentPage === index + 1}
+                          onClick={() => setCurrentPage(index + 1)}
+                        >
+                          {index + 1}
+                        </Pagination.Item>
+                      ))}
+
+                      <Pagination.Next
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                      />
+                      <Pagination.Last onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages} />
+                    </Pagination>
+                  </div>
+                )}
+              {/*  
               <div className="d-flex justify-content-center mt-4">
                 <nav>
                   <ul className="pagination">
@@ -144,7 +181,7 @@ const Dashboard = () => {
                     </li>
                   </ul>
                 </nav>
-              </div>
+              </div> */}
             </>
           )}
         </main>

@@ -45,7 +45,8 @@ function taskReducer(state, action) {
         case "ADD_TASK":
             return {
                 ...state, tasks: [action.payload, ...state.tasks],
-                allTasks: [action.payload, ...state.allTasks]
+                allTasks: [action.payload, ...state.allTasks],
+                count: state.count + 1,
             };
         case "UPDATE_TASK":
             return {
@@ -62,6 +63,7 @@ function taskReducer(state, action) {
                 ...state,
                 tasks: state.tasks.filter((task) => task.id !== action.payload),
                 allTasks: state.allTasks.filter((task) => task.id !== action.payload),
+                count: state.count - 1,
             };
         case "SET_CATEGORIES":
             return { ...state, categories: action.payload };
