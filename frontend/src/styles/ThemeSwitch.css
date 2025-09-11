@@ -1,0 +1,65 @@
+.theme-switch {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.switch.light {
+  background-color: transparent /* yellow-ish */
+}
+
+.switch.dark {
+  background-color: transparent;
+}
+
+.switch .icon {
+  position: absolute;
+  font-size: 16px;
+  color: #fff;
+  transition: opacity 0.3s ease;
+}
+
+.switch .sun {
+  left: 8px;
+  opacity: 1;
+}
+
+.switch.dark .sun {
+  opacity: 50;
+}
+
+.switch .moon {
+  right: 8px;
+  opacity: 50;
+}
+
+.switch.dark .moon {
+  opacity: 1;
+}
+
+.switch .slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.switch.dark .slider {
+  transform: translateX(30px);
+}
