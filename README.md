@@ -60,19 +60,25 @@ This project demonstrates my skills in building full-stack applications with aut
 ## ⚡ Getting Started
 
 ### 1. Clone the Repository
+```
 git clone https://github.com/faisal95iqbal/task_manager.git
 cd task-manager
+```
 
 ### 2. Backend Setup (Django)
+```
 cd backend
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+```
 
 ### 3. Frontend Setup (React)
+```
 cd frontend
 npm install
 npm start
+```
 
 4. Open App
 
