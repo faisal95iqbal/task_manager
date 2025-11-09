@@ -181,14 +181,9 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
-ALLOWED_HOSTS = [
-    '.render.com',
-    'task-manager-chi-lake-89.vercel.app',            # frontend (Vercel)
-    'taskmanager-production-97ce.up.railway.app',     # <-- add your Railway backend host
-]
+ALLOWED_HOSTS = [ "*"]
+CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [
-    "https://task-manager-chi-lake-89.vercel.app",  
-]
+CORS_ALLOWED_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
