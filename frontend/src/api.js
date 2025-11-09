@@ -60,9 +60,9 @@ export default API;
 
 
 import axios from "axios";
-
+const API_BASE_URL = process.env.REACT_APP_API_URL
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -97,7 +97,7 @@ API.interceptors.response.use(
           throw new Error("No refresh token available");
         }
 
-        const res = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
+        const res = await axios.post(`{API_BASE_URL}/api/token/refresh/`, {
           refresh: refreshToken,
         });
 
