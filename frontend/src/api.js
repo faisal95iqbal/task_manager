@@ -64,7 +64,7 @@ import axios from "axios";
 const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const API = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  baseURL: `${API_BASE_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -99,7 +99,7 @@ API.interceptors.response.use(
           throw new Error("No refresh token available");
         }
 
-        const res = await axios.post(`${API_BASE_URL}/api/token/refresh/`, {
+        const res = await axios.post(`${API_BASE_URL}/token/refresh/`, {
           refresh: refreshToken,
         });
 
