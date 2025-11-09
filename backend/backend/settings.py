@@ -181,9 +181,16 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
-ALLOWED_HOSTS = [ "*"]
+ALLOWED_HOSTS = [
+    "taskmanager-production-97ce.up.railway.app",
+    "task-manager-chi-lake-89.vercel.app"
+]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = True
-
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://task-manager-chi-lake-89.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000"
+]
