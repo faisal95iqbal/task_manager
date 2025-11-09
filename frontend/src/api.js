@@ -61,8 +61,10 @@ export default API;
 
 import axios from "axios";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const API = axios.create({
-  baseURL: "taskmanager-production-97ce.up.railway.app/api",
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -97,7 +99,7 @@ API.interceptors.response.use(
           throw new Error("No refresh token available");
         }
 
-        const res = await axios.post("taskmanager-production-97ce.up.railway.app/api/token/refresh/", {
+        const res = await axios.post(`${API_BASE_URL}/api/token/refresh/`, {
           refresh: refreshToken,
         });
 
