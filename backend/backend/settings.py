@@ -59,6 +59,7 @@ SIMPLE_JWT = {
 # Application definition
 
 INSTALLED_APPS = [
+    'django_mongodb_backend',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
