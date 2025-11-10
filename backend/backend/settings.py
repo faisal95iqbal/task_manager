@@ -113,8 +113,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',  # Fallback to SQLite if URL is not found (for local testing)
-        conn_max_age=600  # For connection pooling
+        # 1. Check for the specific public URL variable first
+        default=os.getenv('DATABASE_PUBLIC_URL', ''), 
+        
+        # 2. Fallback to the generic DATABASE_URL if the public one isn't set
+        #    (Useful if you set the external URL under the generic name)
+        env='DATABASE_URL', 
+        
+        conn_max_age=600
     )
 }
 
