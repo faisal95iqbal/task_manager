@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import dj_database_url
+
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -29,6 +29,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
+
+MONGO_DB_URL = os.getenv('MONGO_DB_URL')
 
 
 REST_FRAMEWORK = {
@@ -112,16 +114,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        # 1. Check for the specific public URL variable first
-        default=os.getenv('DATABASE_PUBLIC_URL', ''), 
-        
-        # 2. Fallback to the generic DATABASE_URL if the public one isn't set
-        #    (Useful if you set the external URL under the generic name)
-        env='DATABASE_URL', 
-        
-        conn_max_age=600
-    )
+    'default': {
+        "ENGINE": "django_mongodb_backend",
+        'NAME': 'task_manager_db',  
+        'HOST': MONGO_DB_URL,    
+    }
 }
 
 
