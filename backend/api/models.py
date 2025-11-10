@@ -1,7 +1,10 @@
+from django_mongodb_backend.fields import ObjectIdAutoField
+
 from django.db import models
 from django.contrib.auth.models import User
 
 class Task(models.Model):
+    id = ObjectIdAutoField(primary_key=True)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -15,6 +18,7 @@ class Task(models.Model):
         return self.title
 
 class Category(models.Model):
+    id = ObjectIdAutoField(primary_key=True)
     name = models.CharField(max_length=50)
 
     def __str__(self):

@@ -117,7 +117,8 @@ DATABASES = {
     'default': {
         "ENGINE": "django_mongodb_backend",
         'NAME': 'task_manager_db',  
-        'HOST': MONGO_DB_URL,    
+        'HOST': MONGO_DB_URL, 
+        'ENFORCE_SCHEMA': True,   
     }
 }
 
